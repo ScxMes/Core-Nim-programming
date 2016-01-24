@@ -875,11 +875,13 @@ proc replacef(s: string; sub: Peg; by: string): string {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [ValueError], tags: [].}
 
 用字符串by来替代s中的sub部分。匹配捕获的可以通过符号$i和$#访问（看strutils.`%`),例如：
-```
+
 "var1=key; var2=key2".replacef(peg"{\ident}'='{\ident}", "$1<-$2$2")
+
 Results in:
+
 "var1<-keykey; val2<-key2key2"
-```
+
   Source
 
 
@@ -940,18 +942,18 @@ iterator split(s: string; sep: Peg): string {.raises: [], tags: [].}
 
 切割字符串s为子字符串，
 子串被 PEG sep分割. Examples:
-```
+
 for word in split("00232this02939is39an22example111", peg"\d+"):
   writeLine(stdout, word)
-```
+
 
 Results in:
-```
+
 "this"
 "is"
 "an"
 "example"
-```
+
   Source
 ```
 
@@ -995,7 +997,8 @@ same as \d+   Source
 template `=~`(s: string; pattern: Peg): bool
 
 这个调用过程match，并且隐式的声明一个matches数组，这个数组能够在 =~ 作用域内调用:
-```
+
+
 if line =~ peg"\s* {\w+} \s* '=' \s* {\w+}":
   # matches a key=value pair:
   echo("Key: ", matches[0])
@@ -1008,7 +1011,7 @@ elif line =~ peg"\s*{'#'.*}":
 else:
   echo("syntax error")
   Source
-```
+
 
 ```
 
