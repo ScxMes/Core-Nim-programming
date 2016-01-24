@@ -406,6 +406,22 @@ echo "key: val; key2: val2".replacef(peg1, "$2: $1")
 echo "var1=key; var2=key2".replacef(peg"{\ident}'='{\ident}", "$1<-$2$2")
 ```
 
+比较过程replacef和replace：
+```
+#replacef是进行格式字符串替换，replace是进行普通字符串替换
+#replacef的格式字符串可以使用捕获，通过 $i 访问捕获的子字符串。
+echo "var1=key; var2=key2".replace(peg"{\ident}'='{\ident}", "$1<-$2$2") #完成一次PEG匹配，
+    #立即根据第三个字符串参数,进行一次替换匹配。
+
+echo "var1=key; var2=key2".replace(peg"\ident'='\ident", "1111")
+
+
+echo "var1=key; var2=key2".replacef(peg"{\ident}'='{\ident}", "$1<-$2$2") #完成一次PEG匹配，
+    #立即根据第三个字符串参数（替换的格式字符串）进行格式替换一次匹配。
+    
+echo "var1=key; var2=key2".replacef(peg"{\ident}'='{\ident}", "1111")
+```
+
 测试过程`!*`:
 ```
 import pegs
@@ -1014,68 +1030,4 @@ else:
 
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
