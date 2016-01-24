@@ -613,191 +613,389 @@ MaxSubpatterns = 20
 ```
 proc term(t: string): Peg {.nosideEffect, gcsafe, extern: "npegs$1Str", raises: [],
                         tags: [].}
+
 从一个终端字符串构造一个PEG   Source
+
+
 proc termIgnoreCase(t: string): Peg {.nosideEffect, gcsafe, extern: "npegs$1",
                                   raises: [], tags: [].}
+
 从一个终端字符串构造一个PEG，忽略大小写匹配   Source
+
+
 proc termIgnoreStyle(t: string): Peg {.nosideEffect, gcsafe, extern: "npegs$1",
                                    raises: [], tags: [].}
+
 从一个终端字符串构造一个PEG，忽略拼写风格匹配（大小写，下划线等）   Source
+
+
 proc term(t: char): Peg {.nosideEffect, gcsafe, extern: "npegs$1Char", raises: [],
                       tags: [].}
+
 从一个终端字符构造一个PEG   Source
+
+
 proc charSet(s: set[char]): Peg {.nosideEffect, gcsafe, extern: "npegs$1", raises: [],
                               tags: [].}
+
 从一个终端字符集合s构造一个PEG   Source
+
+
 proc `/`(a: varargs[Peg]): Peg {.nosideEffect, gcsafe, extern: "npegsOrderedChoice",
                              raises: [], tags: [].}
+
 构造一个顺序选择的PEG，只要满足其中一个则表明成功  Source
+
+
 proc sequence(a: varargs[Peg]): Peg {.nosideEffect, gcsafe, extern: "npegs$1",
                                   raises: [], tags: [].}
+
 由多个PEGs a 来构造一个序列。对应与 A ... Z   Source
+
+
 proc `?`(a: Peg): Peg {.nosideEffect, gcsafe, extern: "npegsOptional", raises: [],
                     tags: [].}
+
 构造一个可选的 PEG a，对应于 a?   Source
+
+
 proc `*`(a: Peg): Peg {.nosideEffect, gcsafe, extern: "npegsGreedyRep", raises: [],
                     tags: [].}
+
 构造一个贪婪的重复的 PEG a，对应于a*   Source
+
+
 proc `!*`(a: Peg): Peg {.nosideEffect, gcsafe, extern: "npegsSearch", raises: [], tags: [].}
+
 构造一个"search" PEG a ，应该相当于 @a   Source
+
+
 proc `!*\`(a: Peg): Peg {.noSideEffect, gcsafe, extern: "npgegsCapturedSearch",
                       raises: [], tags: [].}
+
 构造一个捕获搜索的PEG a( "captured search" for the PEG a), 应该相当于 {@} a  或 @@ a。   Source
+
+
 proc `+`(a: Peg): Peg {.nosideEffect, gcsafe, extern: "npegsGreedyPosRep", raises: [],
                     tags: [].}
+
 构造一个正向贪婪重复的PEG a，相当于 a+   Source
+
+
 proc `&`(a: Peg): Peg {.nosideEffect, gcsafe, extern: "npegsAndPredicate", raises: [],
                     tags: [].}
+
 构造一个与断言的 PEG a，相当于&a   Source
+
+
 proc `!`(a: Peg): Peg {.nosideEffect, gcsafe, extern: "npegsNotPredicate", raises: [],
                     tags: [].}
+
 构造一个非断言的 PEG a，相当于 !a   Source
+
+
 proc any(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配任何字符的PEG： (.)   Source
+
+
 proc anyRune(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配任何Unicode字符： (_)   Source
+
+
 proc newLine(): Peg {.inline, raises: [], tags: [].}
+
 构造换行符 PEG：(\n)   Source
+
+
 proc unicodeLetter(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配任何Unicode字母的 PEG： \letter  Source
+
+
 proc unicodeLower(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配任何Unicode小写字母的 PEG：\lower   Source
+
+
 proc unicodeUpper(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配任何Unicode大写字母的 PEG： \upper   Source
+
+
 proc unicodeTitle(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配任何Unicode title letter（？？？）的 PEG：\title   Source
+
+
 proc unicodeWhitespace(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配任何Unicode空格符的 PEG： \white    Source
+
+
 proc startAnchor(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配输入开始位的PEG ^    Source
+
+
 proc endAnchor(): Peg {.inline, raises: [], tags: [].}
+
 构造匹配输入结尾的PEG：$    Source
+
+
 proc capture(a: Peg): Peg {.nosideEffect, gcsafe, extern: "npegsCapture", raises: [],
                         tags: [].}
+
 构造一个PEG a的捕获，相当与{a}   Source
+
+
 proc backref(index: range[1 .. MaxSubpatterns]): Peg {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 构造一个后向引用的PEG，索引是index，其值从1开始，最大值是MaxSubpatterns(常量20），相当与 $i   Source
+
+
 proc backrefIgnoreCase(index: range[1 .. MaxSubpatterns]): Peg {.nosideEffect,
     gcsafe, extern: "npegs$1", raises: [], tags: [].}
+
 构造一个后向引用的PEG，索引是index，其值从1开始，最大值是MaxSubpatterns(常量20），匹配忽略大小写，相当与 i$j   Source
+
+
 proc backrefIgnoreStyle(index: range[1 .. MaxSubpatterns]): Peg {.nosideEffect,
     gcsafe, extern: "npegs$1", raises: [], tags: [].}
+
 构造一个后向引用的PEG，索引是index，其值从1开始，最大值是MaxSubpatterns(常量20），匹配忽略拼写风格（大小写，下划线等），相当与 y$j   Source
+
+
 proc nonterminal(n: NonTerminal): Peg {.nosideEffect, gcsafe, extern: "npegs$1",
                                     raises: [], tags: [].}
+
 构造一个由非终结符组成的PEG   Source
+
+
 proc newNonTerminal(name: string; line, column: int): NonTerminal {.nosideEffect,
     gcsafe, extern: "npegs$1", raises: [], tags: [].}
+
 构造一个非终结符号   Source
+
+
 proc `$`(r: Peg): string {.nosideEffect, gcsafe, extern: "npegsToString", raises: [],
                        tags: [].}
+
 转化一个PEG为它的字符串表示形式   Source
+
+
 proc bounds(c: Captures; i: range[0 .. 20 - 1]): tuple[first, last: int] {.raises: [],
     tags: [].}
+
 返回第i个捕获的边界 [first..last]    Source
+
+
 proc rawMatch(s: string; p: Peg; start: int; c: var Captures): int {.nosideEffect,
     gcsafe, extern: "npegs$1", raises: [], tags: [].}
+
 底层匹配过程，实现PEG解释器。使用这个来达到最高效率（每一个其他的PEG操作都以调用这个过程结束），如果没有匹配将返回-1，否则返回匹配的长度。   Source
+
+
 proc matchLen(s: string; pattern: Peg; matches: var openArray[string]; start = 0): int {.
     nosideEffect, gcsafe, extern: "npegs$1Capture", raises: [], tags: [].}
+
 和match一样，不过它返回匹配的长度，如果没有匹配，将返回-1。注意一个匹配的长度可能是0. s 的下标可能不属于这个匹配（？？？）   Source
+
+
 proc matchLen(s: string; pattern: Peg; start = 0): int {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 和match一样，不过它返回匹配的长度，如果没有匹配，将返回-1。注意一个匹配的长度可能是0. s 的下标可能不属于这个匹配（？？？）   Source
+
+
 proc match(s: string; pattern: Peg; matches: var openArray[string]; start = 0): bool {.
     nosideEffect, gcsafe, extern: "npegs$1Capture", raises: [], tags: [].}
+
 如果s[start..]匹配 pattern，并且捕获子字符串到数组matches里，那么将返回true。如果没有匹配，不会向数组中写数据，并且返回false   Source
+
+
 proc match(s: string; pattern: Peg; start = 0): bool {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 如果s从start出开始匹配pattern，则返回true   Source
+
+
 proc find(s: string; pattern: Peg; matches: var openArray[string]; start = 0): int {.
     nosideEffect, gcsafe, extern: "npegs$1Capture", raises: [], tags: [].}
+
 返回s匹配pattern的开始位置，并且捕获子字符串到数组matches中。如果没有匹配，不写入matches任何数据，并且返回-1   Source
+
+
 proc findBounds(s: string; pattern: Peg; matches: var openArray[string]; start = 0): tuple[
     first, last: int] {.nosideEffect, gcsafe, extern: "npegs$1Capture", raises: [],
                      tags: [].}
+
 返回字符串s匹配pattern的开始和结束位置，并且捕获子字符串到数组matches中，如果没有匹配，数组不写入任何数据，并且返回（-1,0）  Source
+
+
 proc find(s: string; pattern: Peg; start = 0): int {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 返回s匹配pattern的开始位置，如果没有匹配，将返回-1   Source
+
+
 proc findAll(s: string; pattern: Peg; start = 0): seq[string] {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 返回s匹配pattern的所有子字符串，如果没有匹配，将返回@[]   Source
+
+
 proc contains(s: string; pattern: Peg; start = 0): bool {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 相当于 find(s, pattern, start) >= 0   Source
+
+
 proc contains(s: string; pattern: Peg; matches: var openArray[string]; start = 0): bool {.
     nosideEffect, gcsafe, extern: "npegs$1Capture", raises: [], tags: [].}
+
 相当于 find(s, pattern, matches, start) >= 0   Source
+
+
 proc startsWith(s: string; prefix: Peg; start = 0): bool {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 如果s以pattern为前缀开始，那么返回true   Source
+
+
 proc endsWith(s: string; suffix: Peg; start = 0): bool {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 如果s以pattern为后缀结束，那么返回true   Source
+
+
 proc replacef(s: string; sub: Peg; by: string): string {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [ValueError], tags: [].}
+
 用字符串by来替代s中的sub部分。匹配捕获的可以通过符号$i和$#访问（看strutils.`%`),例如：
+```
 "var1=key; var2=key2".replacef(peg"{\ident}'='{\ident}", "$1<-$2$2")
 Results in:
 "var1<-keykey; val2<-key2key2"
+```
   Source
+
+
 proc replace(s: string; sub: Peg; by = ""): string {.nosideEffect, gcsafe,
     extern: "npegs$1", raises: [], tags: [].}
+
 用字符串by来替代s中的sub部分，捕获的数据不能访问   Source
+
+
 proc parallelReplace(s: string; subs: varargs[tuple[pattern: Peg, repl: string]]): string {.
     nosideEffect, gcsafe, extern: "npegs$1", raises: [ValueError], tags: [].}
+
 返回s被subs并行代替改变后的复制   Source
+
+
 proc transformFile(infile, outfile: string;
                   subs: varargs[tuple[pattern: Peg, repl: string]]) {.gcsafe,
     extern: "npegs$1", raises: [Exception, IOError, ValueError],
     tags: [ReadIOEffect, WriteIOEffect].}
+
 读infile文件，执行一个并行性替换（调用parallelReplace),并且写入outfile文件。如果发生一个错误将会引起EIO异常，这个应该用于快速脚本   Source
+
+
 proc split(s: string; sep: Peg): seq[string] {.nosideEffect, gcsafe, extern: "npegs$1",
     raises: [], tags: [].}
+
 切割字符串为子字符串   Source
+
+
 proc parsePeg(pattern: string; filename = "pattern"; line = 1; col = 0): Peg {.
     raises: [ValueError, EInvalidPeg, Exception], tags: [RootEffect].}
+
 以pattern构造一个Peg对象，filename、line、col被用于错误信息，但是它们仅仅提供开始偏移量。parsePeg保持值对pattern内部的line和column数的追踪   Source
+
+
 proc peg(pattern: string): Peg {.raises: [ValueError, EInvalidPeg, Exception],
                              tags: [RootEffect].}
+
 以pattern构造一个Peg对象，简写已经被推荐使用原始字符串修饰符，例如:
 peg"{\ident} \s* '=' \s* {.*}"
   Source
+
+
 proc escapePeg(s: string): string {.raises: [], tags: [].}
+
 转义s,以至于它被逐字匹配当被用于一个peg时   Source
-Iterators
+```
+
+
+###Iterators
+```
 iterator findAll(s: string; pattern: Peg; start = 0): string {.raises: [], tags: [].}
+
 产生所有的s中匹配pattern的子字符串   Source
+
+
 iterator split(s: string; sep: Peg): string {.raises: [], tags: [].}
+
 切割字符串s为子字符串，
 子串被 PEG sep分割. Examples:
+```
 for word in split("00232this02939is39an22example111", peg"\d+"):
   writeLine(stdout, word)
+```
+
 Results in:
+```
 "this"
 "is"
 "an"
 "example"
+```
   Source
-Templates
+```
+
+###Templates
+```
 template letters(): expr
+
 扩大到 charset({'A'..'Z', 'a'..'z'})   Source
+
+
 template digits(): expr
+
 扩大到 charset({'0'..'9'})   Source
+
+
 template whitespace(): expr
+
 扩大到 charset({' ', '\9'..'\13'})   Source
+
+
 template identChars(): expr
+
 扩大到 charset({'a'..'z', 'A'..'Z', '0'..'9', '_'})   Source
+
+
 template identStartChars(): expr
+
 扩大到 charset({'A'..'Z', 'a'..'z', '_'})   Source
+
+
 template ident(): expr
+
 same as [a-zA-Z_][a-zA-z_0-9]*; standard identifier   Source
+
+
 template natural(): expr
+
 same as \d+   Source
+
+
 template `=~`(s: string; pattern: Peg): bool
+
 这个调用过程match，并且隐式的声明一个matches数组，这个数组能够在 =~ 作用域内调用:
+```
 if line =~ peg"\s* {\w+} \s* '=' \s* {\w+}":
   # matches a key=value pair:
   echo("Key: ", matches[0])
@@ -810,6 +1008,7 @@ elif line =~ peg"\s*{'#'.*}":
 else:
   echo("syntax error")
   Source
+```
 
 ```
 
