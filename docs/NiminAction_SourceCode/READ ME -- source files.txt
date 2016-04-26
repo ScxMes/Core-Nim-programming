@@ -1,0 +1,5 @@
+The source files are for the chat application
+the author builds in Chapter 3.
+
+The first two chapters don't require source code,
+as the listings in those chapters are self-contained examples.
