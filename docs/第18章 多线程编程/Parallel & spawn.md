@@ -113,7 +113,7 @@ proc pi(n: int): float =
     for k in 0..ch.high:
       ch[k] = spawn term(float(k))
   for k in 0..ch.high:
-result += ch[k]
+    result += ch[k]
 
 echo formatFloat(pi(5000))
 ```
